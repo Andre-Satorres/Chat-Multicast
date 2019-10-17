@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.*;
 
@@ -40,7 +39,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	public Cliente() throws IOException
 	{                  
 		 JLabel lblMessage = new JLabel("Verificar!");
-		 txtIP = new JTextField(InetAddress.getLocalHost().getHostAddress());
+		 txtIP = new JTextField("192.168.0.21");
 		 txtPorta = new JTextField("12345");
 		 txtNome = new JTextField("Cliente");                
 		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome }; 
@@ -216,18 +215,8 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	 public static void main(String []args) throws IOException
 	 {
 		 Cliente app = new Cliente();
-		 
-		 try
-		 {
-			 app.conectar();
-			 app.escutar();
-		 }
-		 catch(Exception e)
-		 {
-			 System.err.println("Falha na conexão. Servidor fechado!");
-			 System.err.println("Abortando...");
-			 System.exit(0);
-		 }
+		 app.conectar();
+		 app.escutar();
 	 }
 	
 	

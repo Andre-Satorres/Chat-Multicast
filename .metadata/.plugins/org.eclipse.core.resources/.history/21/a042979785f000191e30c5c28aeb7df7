@@ -216,18 +216,8 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	 public static void main(String []args) throws IOException
 	 {
 		 Cliente app = new Cliente();
-		 
-		 try
-		 {
-			 app.conectar();
-			 app.escutar();
-		 }
-		 catch(Exception e)
-		 {
-			 System.err.println("Falha na conexão. Servidor fechado!");
-			 System.err.println("Abortando...");
-			 System.exit(0);
-		 }
+		 app.conectar();
+		 app.escutar();
 	 }
 	
 	
