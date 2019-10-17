@@ -67,7 +67,7 @@ public class Servidor extends Thread
 			
 			clientes.remove(bfw);
 			
-			System.out.println("O cliente " + nome + " desconectou-se!");
+			System.out.println("O cliente " + nome + "desconectou-se!");
 			                                      
 		}
 		catch (Exception e) 

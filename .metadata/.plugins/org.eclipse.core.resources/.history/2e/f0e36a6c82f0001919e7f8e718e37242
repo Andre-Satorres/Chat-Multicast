@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,19 +41,18 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 txtIP = new JTextField("192.168.0.21");
 		 txtPorta = new JTextField("12345");
 		 txtNome = new JTextField("Cliente");                
-		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome }; 
-		 
-		 JOptionPane.showMessageDialog(null, texts);
+		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome };  
+		 JOptionPane.showMessageDialog(null, texts);              
 		 pnlContent = new JPanel();
-		 texto = new JTextArea(10,20);
+		 texto              = new JTextArea(10,20);
 		 texto.setEditable(false);
 		 texto.setBackground(new Color(240,240,240));
-		 txtMsg = new JTextField(20);
-		 lblHistorico = new JLabel("Mensagens");
-		 lblMsg = new JLabel("Mensagem");
-		 btnSend = new JButton("Enviar");
+		 txtMsg                       = new JTextField(20);
+		 lblHistorico     = new JLabel("Mensagens");
+		 lblMsg        = new JLabel("Mensagem");
+		 btnSend                     = new JButton("Enviar");
 		 btnSend.setToolTipText("Enviar Mensagem");
-		 btnSair = new JButton("Sair");
+		 btnSair           = new JButton("Sair");
 		 btnSair.setToolTipText("Sair do Chat");
 		 btnSend.addActionListener(this);
 		 btnSair.addActionListener(this);
@@ -69,8 +67,8 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 pnlContent.add(btnSair);
 		 pnlContent.add(btnSend);
 		 pnlContent.setBackground(Color.LIGHT_GRAY);                                 
-		 texto.setBorder(BorderFactory.createEtchedBorder(Color.BLUE,Color.PINK));
-		 txtMsg.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.PINK));                    
+		 texto.setBorder(BorderFactory.createEtchedBorder(Color.GREEN,Color.GREEN));
+		 txtMsg.setBorder(BorderFactory.createEtchedBorder(Color.GREEN, Color.GREEN));                    
 		 setTitle(txtNome.getText());
 		 setContentPane(pnlContent);
 		 setLocationRelativeTo(null);
@@ -163,8 +161,6 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 ouw.close();
 		 ou.close();
 		 socket.close();
-		 
-		 System.exit(0);
 	 }
 	 
 	 @Override

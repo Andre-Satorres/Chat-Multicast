@@ -66,8 +66,6 @@ public class Servidor extends Thread
 			}
 			
 			clientes.remove(bfw);
-			
-			System.out.println("O cliente " + nome + " desconectou-se!");
 			                                      
 		}
 		catch (Exception e) 
@@ -103,7 +101,7 @@ public class Servidor extends Thread
 			if(!(bwSaida == bwS))
 			{
 				if(msg.equals("Entrou no grupo."))
-					bw.write(nome + " entrou no grupo.\n");
+					bw.write(nome + " entrou no grupo.\r\n");
 				else
 					bw.write(nome + ": " + msg+"\n");
 				
@@ -117,7 +115,7 @@ public class Servidor extends Thread
 		try
 		{
 			JLabel lblMessage = new JLabel("Porta do Servidor:");
-			JTextField txtPorta = new JTextField("12345");
+			JTextField txtPorta = new JTextField("5005");
 			Object[] texts = {lblMessage, txtPorta };  
 			JOptionPane.showMessageDialog(null, texts);
 			server = new ServerSocket(Integer.parseInt(txtPorta.getText()));

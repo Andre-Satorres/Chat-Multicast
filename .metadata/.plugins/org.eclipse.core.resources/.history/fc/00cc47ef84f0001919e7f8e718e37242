@@ -46,15 +46,15 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 
 		 JOptionPane.showMessageDialog(null, texts);
 		 pnlContent = new JPanel();
-		 texto = new JTextArea(10,20);
+		 texto              = new JTextArea(10,20);
 		 texto.setEditable(false);
 		 texto.setBackground(new Color(240,240,240));
-		 txtMsg = new JTextField(20);
-		 lblHistorico = new JLabel("Mensagens");
-		 lblMsg = new JLabel("Mensagem");
-		 btnSend = new JButton("Enviar");
+		 txtMsg                       = new JTextField(20);
+		 lblHistorico     = new JLabel("Mensagens");
+		 lblMsg        = new JLabel("Mensagem");
+		 btnSend                     = new JButton("Enviar");
 		 btnSend.setToolTipText("Enviar Mensagem");
-		 btnSair = new JButton("Sair");
+		 btnSair           = new JButton("Sair");
 		 btnSair.setToolTipText("Sair do Chat");
 		 btnSend.addActionListener(this);
 		 btnSair.addActionListener(this);

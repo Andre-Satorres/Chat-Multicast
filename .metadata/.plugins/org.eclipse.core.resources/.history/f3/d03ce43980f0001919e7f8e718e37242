@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -40,21 +39,20 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	{                  
 		 JLabel lblMessage = new JLabel("Verificar!");
 		 txtIP = new JTextField("192.168.0.21");
-		 txtPorta = new JTextField("12345");
+		 txtPorta = new JTextField("5005");
 		 txtNome = new JTextField("Cliente");                
-		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome }; 
-		 
-		 JOptionPane.showMessageDialog(null, texts);
+		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome };  
+		 JOptionPane.showMessageDialog(null, texts);              
 		 pnlContent = new JPanel();
-		 texto = new JTextArea(10,20);
+		 texto              = new JTextArea(10,20);
 		 texto.setEditable(false);
 		 texto.setBackground(new Color(240,240,240));
-		 txtMsg = new JTextField(20);
-		 lblHistorico = new JLabel("Mensagens");
-		 lblMsg = new JLabel("Mensagem");
-		 btnSend = new JButton("Enviar");
+		 txtMsg                       = new JTextField(20);
+		 lblHistorico     = new JLabel("Mensagens");
+		 lblMsg        = new JLabel("Mensagem");
+		 btnSend                     = new JButton("Enviar");
 		 btnSend.setToolTipText("Enviar Mensagem");
-		 btnSair = new JButton("Sair");
+		 btnSair           = new JButton("Sair");
 		 btnSair.setToolTipText("Sair do Chat");
 		 btnSend.addActionListener(this);
 		 btnSair.addActionListener(this);
@@ -69,8 +67,8 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 pnlContent.add(btnSair);
 		 pnlContent.add(btnSend);
 		 pnlContent.setBackground(Color.LIGHT_GRAY);                                 
-		 texto.setBorder(BorderFactory.createEtchedBorder(Color.BLUE,Color.PINK));
-		 txtMsg.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.PINK));                    
+		 texto.setBorder(BorderFactory.createEtchedBorder(Color.RED,Color.RED));
+		 txtMsg.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.RED));                    
 		 setTitle(txtNome.getText());
 		 setContentPane(pnlContent);
 		 setLocationRelativeTo(null);
@@ -103,11 +101,11 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 ou = socket.getOutputStream();
 		 ouw = new OutputStreamWriter(ou);
 		 bfw = new BufferedWriter(ouw);
-		 bfw.write(txtNome.getText()+"\n");
+		 bfw.write(txtNome.getText()+"\r\n");
 		 bfw.flush();
 		 
 		 bfw.write("Entrou no grupo.\r\n");
-		 texto.append(txtNome.getText() + " entrou no grupo.\n");
+		 texto.append(txtNome.getText() + " entrou no grupo.\r\n");
 		 bfw.flush();
 	 }
 	 
@@ -128,9 +126,9 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 			String[] a = msg.split(" ");
 			
 			if(a.length >= 4 && a[0].equals("/w") && a[2].equals("/m"))
-				 texto.append("Você sussurrou a " + a[1] + ": " + a[3] +"\n");
+				 texto.append("Você sussurrou a " + a[1] + ": " + a[3] +"\r\n");
 			else
-			    texto.append("Você: " + txtMsg.getText()+"\n");
+			    texto.append("Você: " + txtMsg.getText()+"\r\n");
 		}
 		
 		bfw.flush();
@@ -152,7 +150,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 				 if(msg.equals("Sair"))
 					 texto.append("Servidor caiu! \r\n");
 		        else
-		        	texto.append(msg+"\n");         
+		        	texto.append(msg+"\r\n");         
 			 }
 	 }
 	 
@@ -163,8 +161,6 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 ouw.close();
 		 ou.close();
 		 socket.close();
-		 
-		 System.exit(0);
 	 }
 	 
 	 @Override

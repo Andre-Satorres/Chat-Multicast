@@ -66,8 +66,6 @@ public class Servidor extends Thread
 			}
 			
 			clientes.remove(bfw);
-			
-			System.out.println("O cliente " + nome + " desconectou-se!");
 			                                      
 		}
 		catch (Exception e) 
@@ -117,7 +115,7 @@ public class Servidor extends Thread
 		try
 		{
 			JLabel lblMessage = new JLabel("Porta do Servidor:");
-			JTextField txtPorta = new JTextField("12345");
+			JTextField txtPorta = new JTextField("5005");
 			Object[] texts = {lblMessage, txtPorta };  
 			JOptionPane.showMessageDialog(null, texts);
 			server = new ServerSocket(Integer.parseInt(txtPorta.getText()));
