@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	{                  
 		 JLabel lblMessage = new JLabel("Verificar!");
 		 txtIP = new JTextField("192.168.0.21");
-		 txtPorta = new JTextField("12345");
+		 txtPorta = new JTextField("5005");
 		 txtNome = new JTextField("Cliente");                
 		 Object[] texts = {lblMessage, txtIP, txtPorta, txtNome };  
 		 JOptionPane.showMessageDialog(null, texts);              
@@ -74,6 +76,23 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		 setSize(250,300);
 		 setVisible(true);
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
+		 
+		 this.addWindowListener(new WindowAdapter() 
+		 {
+			 @Override
+			 public void windowClosing(WindowEvent e) 
+			 {
+			     try {
+					sair();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			     
+			     System.exit(0);
+			 }
+			  
+		 });
 	}
 	 
 	 public void conectar() throws IOException
@@ -95,15 +114,21 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 		if(msg == null)
 			return;
 		
-		if(msg.equals("Sair"))
+		if(msg.equals("/quit")) //sair
 		{
-		  bfw.write("Desconectado \r\n");
+		  bfw.write("/quit");
 		  texto.append("Desconectado \r\n");
 		}
 		else
 		{
-		  bfw.write(msg+"\r\n");
-		  texto.append( txtNome.getText() + ": " + txtMsg.getText()+"\r\n");
+			bfw.write(msg+"\r\n");
+			
+			String[] a = msg.split(" ");
+			
+			if(a.length >= 4 && a[0].equals("/w") && a[2].equals("/m"))
+				 texto.append("Você sussurrou a " + a[1] + ": " + a[3] +"\r\n");
+			else
+			    texto.append("Você: " + txtMsg.getText()+"\r\n");
 		}
 		
 		bfw.flush();
@@ -131,7 +156,7 @@ public class Cliente extends JFrame implements ActionListener, KeyListener
 	 
 	 public void sair() throws IOException
 	 {
-		 enviarMensagem("Sair");
+		 enviarMensagem("/quit");
 		 bfw.close();
 		 ouw.close();
 		 ou.close();

@@ -17,7 +17,8 @@ import javax.swing.JTextField;
 public class Servidor extends Thread
 {
 	private static ArrayList<BufferedWriter> clientes;           
-	private static ServerSocket server; 
+	private static ServerSocket server;
+	private static ArrayList<String> nomes;
 	private String nome;
 	private Socket con;
 	private InputStream in;  
@@ -50,12 +51,18 @@ public class Servidor extends Thread
 			BufferedWriter bfw = new BufferedWriter(ouw); 
 			clientes.add(bfw);
 			nome = msg = bfr.readLine();
+			nomes.add(nome);
 			           
-			while(!"Sair".equalsIgnoreCase(msg) && msg != null)
+			while(!"/quit".equalsIgnoreCase(msg) && msg != null)
 			{           
 				msg = bfr.readLine();
-				sendToAll(bfw, msg);
-				System.out.println(msg);                                              
+				
+				String[] a = msg.split(" "); //a[0] = /w; a[1] = nick; a[2] = /m; a[3] = msg
+				
+				if(a.length >= 4 && a[0].equals("/w") && a[2].equals("/m"))
+					sussurrar(bfw, a[1], a[3]);
+				else
+					sendToAll(bfw, msg);                                         
 			}
 			                                      
 		}
@@ -63,6 +70,23 @@ public class Servidor extends Thread
 		{
 			e.printStackTrace();
 		}                       
+	}
+	
+	public void sussurrar(BufferedWriter bwSaida, String nick, String msg) throws IOException
+	{
+		if(nomes.indexOf(nick) == -1)
+		{
+			sendToAll(bwSaida, msg);
+			return;
+		}
+		
+		BufferedWriter bwS = clientes.get(nomes.indexOf(nick));
+		
+		if(!(bwSaida == bwS))
+		{
+			bwS.write(nome + " sussurrou para você: " + msg + "\r\n");
+			bwS.flush(); 
+		}
 	}
 	
 	public void sendToAll(BufferedWriter bwSaida, String msg) throws  IOException 
@@ -89,11 +113,12 @@ public class Servidor extends Thread
 		try
 		{
 			JLabel lblMessage = new JLabel("Porta do Servidor:");
-			JTextField txtPorta = new JTextField("12345");
+			JTextField txtPorta = new JTextField("5005");
 			Object[] texts = {lblMessage, txtPorta };  
 			JOptionPane.showMessageDialog(null, texts);
 			server = new ServerSocket(Integer.parseInt(txtPorta.getText()));
 			clientes = new ArrayList<BufferedWriter>();
+			nomes = new ArrayList<String>();
 			JOptionPane.showMessageDialog(null,"Servidor ativo na porta: "+         
 			txtPorta.getText());
 					    
